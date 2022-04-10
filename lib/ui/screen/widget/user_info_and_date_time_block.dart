@@ -9,11 +9,13 @@ final timeFormat = DateFormat('hh:mm dd/MM/yyyy');
 class UserInfoAndDateTimeBlock extends StatelessWidget {
   final User user;
   final DateTime dateTime;
+  final bool isAnonymous;
 
   const UserInfoAndDateTimeBlock({
     Key? key,
     required this.user,
     required this.dateTime,
+    required this.isAnonymous,
   }) : super(key: key);
 
   @override
@@ -31,13 +33,25 @@ class UserInfoAndDateTimeBlock extends StatelessWidget {
             width: avatarSize,
             height: avatarSize,
             child: CachedNetworkImage(
-              imageUrl: user.avatar ?? '',
+              imageUrl: isAnonymous ? '' : user.avatar ?? '',
+              errorWidget: (_, __, ___) {
+                return Container(
+                  width: avatarSize,
+                  height: avatarSize,
+                  decoration: BoxDecoration(color: Colors.black54),
+                  child: Icon(
+                    Icons.person,
+                    size: avatarSize / 2,
+                    color: Colors.white,
+                  ),
+                );
+              },
             ),
           ),
         ),
-        SizedBox(width: 2),
+        SizedBox(width: 4),
         Text(
-          user.name,
+          isAnonymous ? 'Ẩn danh' : user.name,
           style: textStyle,
         ),
         SizedBox(width: 8),

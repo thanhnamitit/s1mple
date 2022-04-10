@@ -28,9 +28,7 @@ class SubmitQuestionUseCase {
       isAnonymous: isAnonymous,
       dateTime: DateTime.now(),
     );
-    print('SubmitQuestionUseCase.call ${question.toJson()}');
-    final a = await firestore.collection('questions').add(question.toJson());
-    print('SubmitQuestionUseCase.call $a');
-    throw Exception();
+    final ref = await firestore.collection('questions').add(question.toJson());
+    return question.copyWith(id: ref.id);
   }
 }

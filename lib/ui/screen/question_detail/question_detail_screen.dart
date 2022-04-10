@@ -47,6 +47,7 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen> {
     return BlocBuilder<QuestionDetailBloc, QuestionDetailState>(
       buildWhen: (p, c) => p.question != c.question,
       builder: (context, state) {
+        print('_QuestionDetailScreenState.buildQuestionDetail ${state.question}');
         final question = state.question;
         final textTheme = Theme.of(context).textTheme;
         return Column(
@@ -70,6 +71,7 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen> {
                   child: UserInfoAndDateTimeBlock(
                     user: question.user,
                     dateTime: question.dateTime,
+                    isAnonymous: question.isAnonymous,
                   ),
                 ),
               ],

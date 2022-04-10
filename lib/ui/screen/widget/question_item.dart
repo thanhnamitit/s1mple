@@ -86,6 +86,7 @@ class QuestionItem extends StatelessWidget {
                   UserInfoAndDateTimeBlock(
                     user: question.user,
                     dateTime: question.dateTime,
+                    isAnonymous: question.isAnonymous,
                   ),
                 ],
               ),

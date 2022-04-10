@@ -3,6 +3,7 @@
 // **************************************************************************
 
 _$_Question _$$_QuestionFromJson(Map<String, dynamic> json) => _$_Question(
+      id: json['id'] as String?,
       title: json['title'] as String,
       content: json['content'] as String,
       votes: json['votes'] as int,
@@ -25,6 +26,7 @@ _$_Question _$$_QuestionFromJson(Map<String, dynamic> json) => _$_Question(
 
 Map<String, dynamic> _$$_QuestionToJson(_$_Question instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'title': instance.title,
       'content': instance.content,
       'votes': instance.votes,
@@ -32,7 +34,7 @@ Map<String, dynamic> _$$_QuestionToJson(_$_Question instance) =>
       'views': instance.views,
       'tags': instance.tags,
       'images': instance.images,
-      'user': instance.user,
+      'user': instance.user.toJson(),
       'dateTime': instance.dateTime.toIso8601String(),
       'voted': instance.voted,
       'devoted': instance.devoted,

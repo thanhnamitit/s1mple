@@ -23,12 +23,14 @@ class QuestionDetailBloc extends CubitWithSubscriptions<QuestionDetailState> {
         super(QuestionDetailState(question: question!));
 
   void setup() {
-    final question = state.question;
-    addSubscriptions(observeToQuestionUseCase().listen((_) {
-      state.copyWith(question: _);
-    }));
+    final questionId = state.question.id;
+    if (questionId != null) {
+      addSubscriptions(observeToQuestionUseCase(questionId).listen((_) {
+        emit(state.copyWith(question: _));
+      }));
+    }
     addSubscriptions(observeToAnswersUseCase().listen((_) {
-      state.copyWith(answers: Async.success(_));
+      emit(state.copyWith(answers: Async.success(_)));
     }));
   }
 }

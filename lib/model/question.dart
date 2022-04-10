@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'user.dart';
 
 part 'question.freezed.dart';
-
 part 'question.g.dart';
 
 final timeFormat = DateFormat('hh:mm dd/MM/yyyy');
@@ -13,7 +12,9 @@ final timeFormat = DateFormat('hh:mm dd/MM/yyyy');
 class Question with _$Question {
   const Question._();
 
+  @JsonSerializable(explicitToJson: true)
   const factory Question({
+    String? id,
     required String title,
     required String content,
     required int votes,

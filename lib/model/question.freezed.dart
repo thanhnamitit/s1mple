@@ -22,7 +22,8 @@ class _$QuestionTearOff {
   const _$QuestionTearOff();
 
   _Question call(
-      {required String title,
+      {String? id,
+      required String title,
       required String content,
       required int votes,
       required int answers,
@@ -35,6 +36,7 @@ class _$QuestionTearOff {
       List<String> devoted = const [],
       bool isAnonymous = false}) {
     return _Question(
+      id: id,
       title: title,
       content: content,
       votes: votes,
@@ -60,6 +62,7 @@ const $Question = _$QuestionTearOff();
 
 /// @nodoc
 mixin _$Question {
+  String? get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   int get votes => throw _privateConstructorUsedError;
@@ -84,7 +87,8 @@ abstract class $QuestionCopyWith<$Res> {
   factory $QuestionCopyWith(Question value, $Res Function(Question) then) =
       _$QuestionCopyWithImpl<$Res>;
   $Res call(
-      {String title,
+      {String? id,
+      String title,
       String content,
       int votes,
       int answers,
@@ -110,6 +114,7 @@ class _$QuestionCopyWithImpl<$Res> implements $QuestionCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? title = freezed,
     Object? content = freezed,
     Object? votes = freezed,
@@ -124,6 +129,10 @@ class _$QuestionCopyWithImpl<$Res> implements $QuestionCopyWith<$Res> {
     Object? isAnonymous = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -189,7 +198,8 @@ abstract class _$QuestionCopyWith<$Res> implements $QuestionCopyWith<$Res> {
       __$QuestionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String title,
+      {String? id,
+      String title,
       String content,
       int votes,
       int answers,
@@ -217,6 +227,7 @@ class __$QuestionCopyWithImpl<$Res> extends _$QuestionCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? title = freezed,
     Object? content = freezed,
     Object? votes = freezed,
@@ -231,6 +242,10 @@ class __$QuestionCopyWithImpl<$Res> extends _$QuestionCopyWithImpl<$Res>
     Object? isAnonymous = freezed,
   }) {
     return _then(_Question(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -284,10 +299,12 @@ class __$QuestionCopyWithImpl<$Res> extends _$QuestionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$_Question extends _Question {
   const _$_Question(
-      {required this.title,
+      {this.id,
+      required this.title,
       required this.content,
       required this.votes,
       required this.answers,
@@ -304,6 +321,8 @@ class _$_Question extends _Question {
   factory _$_Question.fromJson(Map<String, dynamic> json) =>
       _$$_QuestionFromJson(json);
 
+  @override
+  final String? id;
   @override
   final String title;
   @override
@@ -334,13 +353,15 @@ class _$_Question extends _Question {
 
   @override
   String toString() {
-    return 'Question(title: $title, content: $content, votes: $votes, answers: $answers, views: $views, tags: $tags, images: $images, user: $user, dateTime: $dateTime, voted: $voted, devoted: $devoted, isAnonymous: $isAnonymous)';
+    return 'Question(id: $id, title: $title, content: $content, votes: $votes, answers: $answers, views: $views, tags: $tags, images: $images, user: $user, dateTime: $dateTime, voted: $voted, devoted: $devoted, isAnonymous: $isAnonymous)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Question &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.content, content) ||
@@ -375,6 +396,7 @@ class _$_Question extends _Question {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(content) ^
       const DeepCollectionEquality().hash(votes) ^
@@ -401,7 +423,8 @@ class _$_Question extends _Question {
 
 abstract class _Question extends Question {
   const factory _Question(
-      {required String title,
+      {String? id,
+      required String title,
       required String content,
       required int votes,
       required int answers,
@@ -417,6 +440,8 @@ abstract class _Question extends Question {
 
   factory _Question.fromJson(Map<String, dynamic> json) = _$_Question.fromJson;
 
+  @override
+  String? get id => throw _privateConstructorUsedError;
   @override
   String get title => throw _privateConstructorUsedError;
   @override
