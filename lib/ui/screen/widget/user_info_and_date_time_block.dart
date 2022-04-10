@@ -15,7 +15,7 @@ class UserInfoAndDateTimeBlock extends StatelessWidget {
     Key? key,
     required this.user,
     required this.dateTime,
-    required this.isAnonymous,
+    this.isAnonymous = false,
   }) : super(key: key);
 
   @override

@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_widget/share_widget.dart';
 
-class CubitWithSubscriptions<T> extends Cubit<T> {
+class CubitWithSubscriptions<T> extends BaseCubit<T> {
   final List<StreamSubscription> _subscription = [];
 
   CubitWithSubscriptions(T initialState) : super(initialState);

@@ -13,6 +13,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Reply _$ReplyFromJson(Map<String, dynamic> json) {
+  return _Reply.fromJson(json);
+}
+
 /// @nodoc
 class _$ReplyTearOff {
   const _$ReplyTearOff();
@@ -27,6 +31,10 @@ class _$ReplyTearOff {
       dateTime: dateTime,
     );
   }
+
+  Reply fromJson(Map<String, Object> json) {
+    return Reply.fromJson(json);
+  }
 }
 
 /// @nodoc
@@ -38,6 +46,7 @@ mixin _$Reply {
   User get user => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ReplyCopyWith<Reply> get copyWith => throw _privateConstructorUsedError;
 }
@@ -134,10 +143,14 @@ class __$ReplyCopyWithImpl<$Res> extends _$ReplyCopyWithImpl<$Res>
 
 /// @nodoc
 
+@JsonSerializable(explicitToJson: true)
 class _$_Reply extends _Reply {
   const _$_Reply(
       {required this.content, required this.user, required this.dateTime})
       : super._();
+
+  factory _$_Reply.fromJson(Map<String, dynamic> json) =>
+      _$$_ReplyFromJson(json);
 
   @override
   final String content;
@@ -176,6 +189,11 @@ class _$_Reply extends _Reply {
   @override
   _$ReplyCopyWith<_Reply> get copyWith =>
       __$ReplyCopyWithImpl<_Reply>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ReplyToJson(this);
+  }
 }
 
 abstract class _Reply extends Reply {
@@ -184,6 +202,8 @@ abstract class _Reply extends Reply {
       required User user,
       required DateTime dateTime}) = _$_Reply;
   const _Reply._() : super._();
+
+  factory _Reply.fromJson(Map<String, dynamic> json) = _$_Reply.fromJson;
 
   @override
   String get content => throw _privateConstructorUsedError;

@@ -11,10 +11,8 @@ class ObserveToQuestionUseCase {
   ObserveToQuestionUseCase(this.firestore);
 
   Stream<Question> call(String id) {
-    return firestore
-        .collection(Const.questions)
-        .doc(id)
-        .snapshots()
-        .map((doc) => Question.fromJson(doc.data()!).copyWith(id: doc.id));
+    return firestore.collection(Const.questions).doc(id).snapshots().map((doc) {
+      return Question.fromJson(doc.data()!).copyWith(id: doc.id);
+    });
   }
 }

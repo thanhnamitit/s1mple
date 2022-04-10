@@ -19,10 +19,18 @@ class _$QuestionDetailStateTearOff {
 
   _QuestionDetailState call(
       {required Question question,
-      Async<List<Answer>> answers = const Async.loading()}) {
+      Async<List<Answer>> answers = const Async.loading(),
+      Async<Answer>? submittingAnswer,
+      Async<Reply>? submittingReply,
+      Async<Question>? votingQuestion,
+      Async<Answer>? votingAnswer}) {
     return _QuestionDetailState(
       question: question,
       answers: answers,
+      submittingAnswer: submittingAnswer,
+      submittingReply: submittingReply,
+      votingQuestion: votingQuestion,
+      votingAnswer: votingAnswer,
     );
   }
 }
@@ -34,6 +42,10 @@ const $QuestionDetailState = _$QuestionDetailStateTearOff();
 mixin _$QuestionDetailState {
   Question get question => throw _privateConstructorUsedError;
   Async<List<Answer>> get answers => throw _privateConstructorUsedError;
+  Async<Answer>? get submittingAnswer => throw _privateConstructorUsedError;
+  Async<Reply>? get submittingReply => throw _privateConstructorUsedError;
+  Async<Question>? get votingQuestion => throw _privateConstructorUsedError;
+  Async<Answer>? get votingAnswer => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QuestionDetailStateCopyWith<QuestionDetailState> get copyWith =>
@@ -45,10 +57,20 @@ abstract class $QuestionDetailStateCopyWith<$Res> {
   factory $QuestionDetailStateCopyWith(
           QuestionDetailState value, $Res Function(QuestionDetailState) then) =
       _$QuestionDetailStateCopyWithImpl<$Res>;
-  $Res call({Question question, Async<List<Answer>> answers});
+  $Res call(
+      {Question question,
+      Async<List<Answer>> answers,
+      Async<Answer>? submittingAnswer,
+      Async<Reply>? submittingReply,
+      Async<Question>? votingQuestion,
+      Async<Answer>? votingAnswer});
 
   $QuestionCopyWith<$Res> get question;
   $AsyncCopyWith<List<Answer>, $Res> get answers;
+  $AsyncCopyWith<Answer, $Res>? get submittingAnswer;
+  $AsyncCopyWith<Reply, $Res>? get submittingReply;
+  $AsyncCopyWith<Question, $Res>? get votingQuestion;
+  $AsyncCopyWith<Answer, $Res>? get votingAnswer;
 }
 
 /// @nodoc
@@ -64,6 +86,10 @@ class _$QuestionDetailStateCopyWithImpl<$Res>
   $Res call({
     Object? question = freezed,
     Object? answers = freezed,
+    Object? submittingAnswer = freezed,
+    Object? submittingReply = freezed,
+    Object? votingQuestion = freezed,
+    Object? votingAnswer = freezed,
   }) {
     return _then(_value.copyWith(
       question: question == freezed
@@ -74,6 +100,22 @@ class _$QuestionDetailStateCopyWithImpl<$Res>
           ? _value.answers
           : answers // ignore: cast_nullable_to_non_nullable
               as Async<List<Answer>>,
+      submittingAnswer: submittingAnswer == freezed
+          ? _value.submittingAnswer
+          : submittingAnswer // ignore: cast_nullable_to_non_nullable
+              as Async<Answer>?,
+      submittingReply: submittingReply == freezed
+          ? _value.submittingReply
+          : submittingReply // ignore: cast_nullable_to_non_nullable
+              as Async<Reply>?,
+      votingQuestion: votingQuestion == freezed
+          ? _value.votingQuestion
+          : votingQuestion // ignore: cast_nullable_to_non_nullable
+              as Async<Question>?,
+      votingAnswer: votingAnswer == freezed
+          ? _value.votingAnswer
+          : votingAnswer // ignore: cast_nullable_to_non_nullable
+              as Async<Answer>?,
     ));
   }
 
@@ -90,6 +132,50 @@ class _$QuestionDetailStateCopyWithImpl<$Res>
       return _then(_value.copyWith(answers: value));
     });
   }
+
+  @override
+  $AsyncCopyWith<Answer, $Res>? get submittingAnswer {
+    if (_value.submittingAnswer == null) {
+      return null;
+    }
+
+    return $AsyncCopyWith<Answer, $Res>(_value.submittingAnswer!, (value) {
+      return _then(_value.copyWith(submittingAnswer: value));
+    });
+  }
+
+  @override
+  $AsyncCopyWith<Reply, $Res>? get submittingReply {
+    if (_value.submittingReply == null) {
+      return null;
+    }
+
+    return $AsyncCopyWith<Reply, $Res>(_value.submittingReply!, (value) {
+      return _then(_value.copyWith(submittingReply: value));
+    });
+  }
+
+  @override
+  $AsyncCopyWith<Question, $Res>? get votingQuestion {
+    if (_value.votingQuestion == null) {
+      return null;
+    }
+
+    return $AsyncCopyWith<Question, $Res>(_value.votingQuestion!, (value) {
+      return _then(_value.copyWith(votingQuestion: value));
+    });
+  }
+
+  @override
+  $AsyncCopyWith<Answer, $Res>? get votingAnswer {
+    if (_value.votingAnswer == null) {
+      return null;
+    }
+
+    return $AsyncCopyWith<Answer, $Res>(_value.votingAnswer!, (value) {
+      return _then(_value.copyWith(votingAnswer: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -99,12 +185,26 @@ abstract class _$QuestionDetailStateCopyWith<$Res>
           $Res Function(_QuestionDetailState) then) =
       __$QuestionDetailStateCopyWithImpl<$Res>;
   @override
-  $Res call({Question question, Async<List<Answer>> answers});
+  $Res call(
+      {Question question,
+      Async<List<Answer>> answers,
+      Async<Answer>? submittingAnswer,
+      Async<Reply>? submittingReply,
+      Async<Question>? votingQuestion,
+      Async<Answer>? votingAnswer});
 
   @override
   $QuestionCopyWith<$Res> get question;
   @override
   $AsyncCopyWith<List<Answer>, $Res> get answers;
+  @override
+  $AsyncCopyWith<Answer, $Res>? get submittingAnswer;
+  @override
+  $AsyncCopyWith<Reply, $Res>? get submittingReply;
+  @override
+  $AsyncCopyWith<Question, $Res>? get votingQuestion;
+  @override
+  $AsyncCopyWith<Answer, $Res>? get votingAnswer;
 }
 
 /// @nodoc
@@ -122,6 +222,10 @@ class __$QuestionDetailStateCopyWithImpl<$Res>
   $Res call({
     Object? question = freezed,
     Object? answers = freezed,
+    Object? submittingAnswer = freezed,
+    Object? submittingReply = freezed,
+    Object? votingQuestion = freezed,
+    Object? votingAnswer = freezed,
   }) {
     return _then(_QuestionDetailState(
       question: question == freezed
@@ -132,6 +236,22 @@ class __$QuestionDetailStateCopyWithImpl<$Res>
           ? _value.answers
           : answers // ignore: cast_nullable_to_non_nullable
               as Async<List<Answer>>,
+      submittingAnswer: submittingAnswer == freezed
+          ? _value.submittingAnswer
+          : submittingAnswer // ignore: cast_nullable_to_non_nullable
+              as Async<Answer>?,
+      submittingReply: submittingReply == freezed
+          ? _value.submittingReply
+          : submittingReply // ignore: cast_nullable_to_non_nullable
+              as Async<Reply>?,
+      votingQuestion: votingQuestion == freezed
+          ? _value.votingQuestion
+          : votingQuestion // ignore: cast_nullable_to_non_nullable
+              as Async<Question>?,
+      votingAnswer: votingAnswer == freezed
+          ? _value.votingAnswer
+          : votingAnswer // ignore: cast_nullable_to_non_nullable
+              as Async<Answer>?,
     ));
   }
 }
@@ -140,17 +260,30 @@ class __$QuestionDetailStateCopyWithImpl<$Res>
 
 class _$_QuestionDetailState implements _QuestionDetailState {
   const _$_QuestionDetailState(
-      {required this.question, this.answers = const Async.loading()});
+      {required this.question,
+      this.answers = const Async.loading(),
+      this.submittingAnswer,
+      this.submittingReply,
+      this.votingQuestion,
+      this.votingAnswer});
 
   @override
   final Question question;
   @JsonKey(defaultValue: const Async.loading())
   @override
   final Async<List<Answer>> answers;
+  @override
+  final Async<Answer>? submittingAnswer;
+  @override
+  final Async<Reply>? submittingReply;
+  @override
+  final Async<Question>? votingQuestion;
+  @override
+  final Async<Answer>? votingAnswer;
 
   @override
   String toString() {
-    return 'QuestionDetailState(question: $question, answers: $answers)';
+    return 'QuestionDetailState(question: $question, answers: $answers, submittingAnswer: $submittingAnswer, submittingReply: $submittingReply, votingQuestion: $votingQuestion, votingAnswer: $votingAnswer)';
   }
 
   @override
@@ -161,14 +294,31 @@ class _$_QuestionDetailState implements _QuestionDetailState {
                 const DeepCollectionEquality()
                     .equals(other.question, question)) &&
             (identical(other.answers, answers) ||
-                const DeepCollectionEquality().equals(other.answers, answers)));
+                const DeepCollectionEquality()
+                    .equals(other.answers, answers)) &&
+            (identical(other.submittingAnswer, submittingAnswer) ||
+                const DeepCollectionEquality()
+                    .equals(other.submittingAnswer, submittingAnswer)) &&
+            (identical(other.submittingReply, submittingReply) ||
+                const DeepCollectionEquality()
+                    .equals(other.submittingReply, submittingReply)) &&
+            (identical(other.votingQuestion, votingQuestion) ||
+                const DeepCollectionEquality()
+                    .equals(other.votingQuestion, votingQuestion)) &&
+            (identical(other.votingAnswer, votingAnswer) ||
+                const DeepCollectionEquality()
+                    .equals(other.votingAnswer, votingAnswer)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(question) ^
-      const DeepCollectionEquality().hash(answers);
+      const DeepCollectionEquality().hash(answers) ^
+      const DeepCollectionEquality().hash(submittingAnswer) ^
+      const DeepCollectionEquality().hash(submittingReply) ^
+      const DeepCollectionEquality().hash(votingQuestion) ^
+      const DeepCollectionEquality().hash(votingAnswer);
 
   @JsonKey(ignore: true)
   @override
@@ -180,12 +330,24 @@ class _$_QuestionDetailState implements _QuestionDetailState {
 abstract class _QuestionDetailState implements QuestionDetailState {
   const factory _QuestionDetailState(
       {required Question question,
-      Async<List<Answer>> answers}) = _$_QuestionDetailState;
+      Async<List<Answer>> answers,
+      Async<Answer>? submittingAnswer,
+      Async<Reply>? submittingReply,
+      Async<Question>? votingQuestion,
+      Async<Answer>? votingAnswer}) = _$_QuestionDetailState;
 
   @override
   Question get question => throw _privateConstructorUsedError;
   @override
   Async<List<Answer>> get answers => throw _privateConstructorUsedError;
+  @override
+  Async<Answer>? get submittingAnswer => throw _privateConstructorUsedError;
+  @override
+  Async<Reply>? get submittingReply => throw _privateConstructorUsedError;
+  @override
+  Async<Question>? get votingQuestion => throw _privateConstructorUsedError;
+  @override
+  Async<Answer>? get votingAnswer => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$QuestionDetailStateCopyWith<_QuestionDetailState> get copyWith =>

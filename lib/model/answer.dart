@@ -1,27 +1,32 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
-import 'package:share_widget/share_widget.dart';
 
+import '../domain/base_update_voted_use_case.dart';
 import 'reply.dart';
 import 'user.dart';
 
 part 'answer.freezed.dart';
+part 'answer.g.dart';
 
-final timeFormat = DateFormat('hh:mm dd/MM/yyyy');
 
 @freezed
 class Answer with _$Answer {
   const Answer._();
 
+  @JsonSerializable(explicitToJson: true)
   const factory Answer({
-    required String id,
+    String? id,
     required String content,
-    required int votes,
     @Default(false) bool accepted,
     required User user,
     required DateTime dateTime,
-    required List<Reply> replies,
+    List<Reply>? replies,
+    @Default([]) List<String> voted,
+    @Default([]) List<String> devoted,
   }) = _Answer;
 
-  String get time => timeFormat.format(dateTime);
+  factory Answer.fromJson(Map<String, dynamic> json) => _$AnswerFromJson(json);
+
+  int get votes => voted.length - devoted.length;
+
 }

@@ -25,7 +25,6 @@ class _$QuestionTearOff {
       {String? id,
       required String title,
       required String content,
-      required int votes,
       required int answers,
       required int views,
       List<String>? tags,
@@ -39,7 +38,6 @@ class _$QuestionTearOff {
       id: id,
       title: title,
       content: content,
-      votes: votes,
       answers: answers,
       views: views,
       tags: tags,
@@ -65,7 +63,6 @@ mixin _$Question {
   String? get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
-  int get votes => throw _privateConstructorUsedError;
   int get answers => throw _privateConstructorUsedError;
   int get views => throw _privateConstructorUsedError;
   List<String>? get tags => throw _privateConstructorUsedError;
@@ -90,7 +87,6 @@ abstract class $QuestionCopyWith<$Res> {
       {String? id,
       String title,
       String content,
-      int votes,
       int answers,
       int views,
       List<String>? tags,
@@ -117,7 +113,6 @@ class _$QuestionCopyWithImpl<$Res> implements $QuestionCopyWith<$Res> {
     Object? id = freezed,
     Object? title = freezed,
     Object? content = freezed,
-    Object? votes = freezed,
     Object? answers = freezed,
     Object? views = freezed,
     Object? tags = freezed,
@@ -141,10 +136,6 @@ class _$QuestionCopyWithImpl<$Res> implements $QuestionCopyWith<$Res> {
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      votes: votes == freezed
-          ? _value.votes
-          : votes // ignore: cast_nullable_to_non_nullable
-              as int,
       answers: answers == freezed
           ? _value.answers
           : answers // ignore: cast_nullable_to_non_nullable
@@ -201,7 +192,6 @@ abstract class _$QuestionCopyWith<$Res> implements $QuestionCopyWith<$Res> {
       {String? id,
       String title,
       String content,
-      int votes,
       int answers,
       int views,
       List<String>? tags,
@@ -230,7 +220,6 @@ class __$QuestionCopyWithImpl<$Res> extends _$QuestionCopyWithImpl<$Res>
     Object? id = freezed,
     Object? title = freezed,
     Object? content = freezed,
-    Object? votes = freezed,
     Object? answers = freezed,
     Object? views = freezed,
     Object? tags = freezed,
@@ -254,10 +243,6 @@ class __$QuestionCopyWithImpl<$Res> extends _$QuestionCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      votes: votes == freezed
-          ? _value.votes
-          : votes // ignore: cast_nullable_to_non_nullable
-              as int,
       answers: answers == freezed
           ? _value.answers
           : answers // ignore: cast_nullable_to_non_nullable
@@ -306,7 +291,6 @@ class _$_Question extends _Question {
       {this.id,
       required this.title,
       required this.content,
-      required this.votes,
       required this.answers,
       required this.views,
       this.tags,
@@ -327,8 +311,6 @@ class _$_Question extends _Question {
   final String title;
   @override
   final String content;
-  @override
-  final int votes;
   @override
   final int answers;
   @override
@@ -353,7 +335,7 @@ class _$_Question extends _Question {
 
   @override
   String toString() {
-    return 'Question(id: $id, title: $title, content: $content, votes: $votes, answers: $answers, views: $views, tags: $tags, images: $images, user: $user, dateTime: $dateTime, voted: $voted, devoted: $devoted, isAnonymous: $isAnonymous)';
+    return 'Question(id: $id, title: $title, content: $content, answers: $answers, views: $views, tags: $tags, images: $images, user: $user, dateTime: $dateTime, voted: $voted, devoted: $devoted, isAnonymous: $isAnonymous)';
   }
 
   @override
@@ -367,8 +349,6 @@ class _$_Question extends _Question {
             (identical(other.content, content) ||
                 const DeepCollectionEquality()
                     .equals(other.content, content)) &&
-            (identical(other.votes, votes) ||
-                const DeepCollectionEquality().equals(other.votes, votes)) &&
             (identical(other.answers, answers) ||
                 const DeepCollectionEquality()
                     .equals(other.answers, answers)) &&
@@ -399,7 +379,6 @@ class _$_Question extends _Question {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(content) ^
-      const DeepCollectionEquality().hash(votes) ^
       const DeepCollectionEquality().hash(answers) ^
       const DeepCollectionEquality().hash(views) ^
       const DeepCollectionEquality().hash(tags) ^
@@ -426,7 +405,6 @@ abstract class _Question extends Question {
       {String? id,
       required String title,
       required String content,
-      required int votes,
       required int answers,
       required int views,
       List<String>? tags,
@@ -446,8 +424,6 @@ abstract class _Question extends Question {
   String get title => throw _privateConstructorUsedError;
   @override
   String get content => throw _privateConstructorUsedError;
-  @override
-  int get votes => throw _privateConstructorUsedError;
   @override
   int get answers => throw _privateConstructorUsedError;
   @override

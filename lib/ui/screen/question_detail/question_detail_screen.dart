@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_widget/share_widget.dart';
 
 import '../../../di/hackathon_di.dart';
+import '../../../model/answer.dart';
 import '../../../model/question.dart';
 import '../../../model/user.dart';
+import '../../bottom_sheet/input_bottom_sheet.dart';
+import '../widget/firebase_image.dart';
 import '../widget/tags.dart';
 import '../widget/user_info_and_date_time_block.dart';
 import '../widget/vote_widget.dart';
@@ -25,7 +28,8 @@ class QuestionDetailScreen extends StatefulWidget {
   _QuestionDetailScreenState createState() => _QuestionDetailScreenState();
 }
 
-class _QuestionDetailScreenState extends State<QuestionDetailScreen> {
+class _QuestionDetailScreenState extends State<QuestionDetailScreen>
+    with LoadingMixin {
   late final QuestionDetailBloc bloc;
 
   @override
@@ -43,13 +47,35 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen> {
     super.dispose();
   }
 
+  Widget buildImages(List<String> paths) {
+    if (paths.isEmpty) return SizedBox();
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: SingleChildScrollView(
+        child: Row(
+          children: paths
+              .map(
+                (e) => ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    child: FirebaseImage(storagePath: e),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+      ),
+    );
+  }
+
   Widget buildQuestionDetail() {
     return BlocBuilder<QuestionDetailBloc, QuestionDetailState>(
-      buildWhen: (p, c) => p.question != c.question,
       builder: (context, state) {
-        print('_QuestionDetailScreenState.buildQuestionDetail ${state.question}');
         final question = state.question;
         final textTheme = Theme.of(context).textTheme;
+        final images = question.images ?? [];
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -59,14 +85,23 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen> {
             SizedBox(height: 12),
             Tags(question.tags),
             SizedBox(height: 12),
+            buildImages(images),
             Row(
               children: [
-                VoteWidget(
-                  votes: question.votes,
-                  onTapDown: () {},
-                  onTapUp: () {},
+                IgnorePointer(
+                  ignoring: state.votingQuestion is Loading,
+                  child: VoteWidget(
+                    votes: question.votes,
+                    type: getVoteType(
+                      devoted: question.devoted,
+                      voted: question.voted,
+                      userId: bloc.user.id,
+                    ),
+                    submitting: state.votingQuestion is Loading,
+                    requestChange: (_) => bloc.vote(_),
+                  ),
                 ),
-                SizedBox(width: 24),
+                SizedBox(width: 12),
                 Expanded(
                   child: UserInfoAndDateTimeBlock(
                     user: question.user,
@@ -75,8 +110,115 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen> {
                   ),
                 ),
               ],
-            )
+            ),
+            SizedBox(height: 12),
+            InkWell(
+              onTap: () async {
+                final text = await inputText(
+                  context: context,
+                  title: 'Trả lời',
+                  hint: 'Tối thiểu 15 ký tự...',
+                );
+                if (text is String) {
+                  bloc.submitAnswer(text);
+                }
+              },
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  color: Color(0xffF3F7F9),
+                ),
+                child: Text(
+                  'Trả lời',
+                  style: Theme.of(context)
+                      .textTheme
+                      .button
+                      ?.copyWith(color: Colors.black45),
+                ),
+              ),
+            ),
           ],
+        );
+      },
+    );
+  }
+
+  Widget buildAnswerLoading() {
+    return Row(
+      children: [
+        Text(
+          'Đang lấy danh sách bình luận',
+          style: Theme.of(context).textTheme.headline5,
+        ),
+        SizedBox(width: 12),
+        SizedBox(
+          width: 18,
+          height: 18,
+          child: CircularProgressIndicator(strokeWidth: 2),
+        )
+      ],
+    );
+  }
+
+  Widget buildAnswer(
+    Answer answer, {
+    required bool submitting,
+    required bool ignoring,
+  }) {
+    return IgnorePointer(
+      ignoring: ignoring,
+      child: Row(
+        children: [
+          VoteWidget(
+            votes: answer.votes,
+            submitting: submitting,
+            type: getVoteType(
+              devoted: answer.devoted,
+              voted: answer.voted,
+              userId: bloc.user.id,
+            ),
+            requestChange: (_) => bloc.voteAnswer(_, answer),
+          ),
+          SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(answer.content),
+                SizedBox(height: 8),
+                UserInfoAndDateTimeBlock(
+                  user: answer.user,
+                  dateTime: answer.dateTime,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildAnswers() {
+    return BlocBuilder<QuestionDetailBloc, QuestionDetailState>(
+      builder: (_, state) {
+        final votingAnswer = state.votingAnswer;
+        return state.answers.maybeMap(
+          orElse: () => buildAnswerLoading(),
+          success: (_) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: _.data.map(
+              (e) {
+                return buildAnswer(
+                  e,
+                  submitting:
+                      votingAnswer?.call() == e && votingAnswer is Loading,
+                  ignoring: votingAnswer is Loading,
+                );
+              },
+            ).toList(),
+          ),
         );
       },
     );
@@ -86,19 +228,39 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: bloc,
-      child: ShareScaffold(
-        appBar: AppBar(leading: ShareBackButton()),
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: ShareBackground(
-            padding: EdgeInsets.zero,
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
-              child: Column(
-                children: [
-                  buildQuestionDetail(),
-                ],
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<QuestionDetailBloc, QuestionDetailState>(
+            listenWhen: (p, c) => p.submittingAnswer != c.submittingAnswer,
+            listener: (_, state) {
+              if (state.submittingAnswer is Fail) {
+                showError('Có lỗi xảy ra, vui lòng thử lại');
+              }
+            },
+          )
+        ],
+        child: ShareScaffold(
+          appBar: AppBar(leading: ShareBackButton()),
+          body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: ShareBackground(
+              padding: EdgeInsets.zero,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildQuestionDetail(),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 18),
+                      height: 1,
+                      width: double.infinity,
+                      color: ShareColors.bg300,
+                    ),
+                    buildAnswers(),
+                  ],
+                ),
               ),
             ),
           ),

@@ -17,7 +17,6 @@ class Question with _$Question {
     String? id,
     required String title,
     required String content,
-    required int votes,
     required int answers,
     required int views,
     List<String>? tags,
@@ -31,6 +30,8 @@ class Question with _$Question {
 
   factory Question.fromJson(Map<String, dynamic> json) =>
       _$QuestionFromJson(json);
+
+  int get votes => voted.length - devoted.length;
 
   String get time => timeFormat.format(dateTime);
 }

@@ -11,7 +11,11 @@ class ObserveToQuestionsUseCase {
   ObserveToQuestionsUseCase(this.firestore);
 
   Stream<List<Question>> call() {
-    return firestore.collection(Const.questions).snapshots().map((e) {
+    return firestore
+        .collection(Const.questions)
+        .orderBy('dateTime', descending: true)
+        .snapshots()
+        .map((e) {
       return e.docs.map((doc) {
         return Question.fromJson(doc.data()).copyWith(id: doc.id);
       }).toList();
