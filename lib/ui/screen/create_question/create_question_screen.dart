@@ -6,6 +6,7 @@ import 'package:share_widget/share_widget.dart';
 
 import '../../../di/hackathon_di.dart';
 import '../../../model/user.dart';
+import '../question_detail/question_detail_screen.dart';
 import 'create_question_bloc.dart';
 import 'create_question_state.dart';
 
@@ -21,7 +22,8 @@ class CreateQuestionScreen extends StatefulWidget {
   _CreateQuestionScreenState createState() => _CreateQuestionScreenState();
 }
 
-class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
+class _CreateQuestionScreenState extends State<CreateQuestionScreen>
+    with LoadingMixin {
   static const maxNumOfImages = 5;
   final titleController = TextEditingController();
   final contentController = TextEditingController();
@@ -174,8 +176,28 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreateQuestionBloc, CreateQuestionState>(
+    return BlocConsumer<CreateQuestionBloc, CreateQuestionState>(
       bloc: bloc,
+      listener: (_, state) {
+        state.submitting?.when(
+          loading: (_) => showLoading(),
+          success: (_) {
+            hideLoading();
+            showSuccess('Tạo câu hỏi thành công!');
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => QuestionDetailScreen(
+                  user: bloc.user,
+                  question: _,
+                ),
+              ),
+            );
+          },
+          fail: (_) {
+            hideLoading();
+          },
+        );
+      },
       builder: (context, state) {
         return ShareScaffold(
           appBar: AppBar(

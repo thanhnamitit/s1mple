@@ -13,6 +13,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Question _$QuestionFromJson(Map<String, dynamic> json) {
+  return _Question.fromJson(json);
+}
+
 /// @nodoc
 class _$QuestionTearOff {
   const _$QuestionTearOff();
@@ -28,7 +32,8 @@ class _$QuestionTearOff {
       required User user,
       required DateTime dateTime,
       List<String> voted = const [],
-      List<String> devoted = const []}) {
+      List<String> devoted = const [],
+      bool isAnonymous = false}) {
     return _Question(
       title: title,
       content: content,
@@ -41,7 +46,12 @@ class _$QuestionTearOff {
       dateTime: dateTime,
       voted: voted,
       devoted: devoted,
+      isAnonymous: isAnonymous,
     );
+  }
+
+  Question fromJson(Map<String, Object> json) {
+    return Question.fromJson(json);
   }
 }
 
@@ -61,7 +71,9 @@ mixin _$Question {
   DateTime get dateTime => throw _privateConstructorUsedError;
   List<String> get voted => throw _privateConstructorUsedError;
   List<String> get devoted => throw _privateConstructorUsedError;
+  bool get isAnonymous => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $QuestionCopyWith<Question> get copyWith =>
       throw _privateConstructorUsedError;
@@ -82,7 +94,8 @@ abstract class $QuestionCopyWith<$Res> {
       User user,
       DateTime dateTime,
       List<String> voted,
-      List<String> devoted});
+      List<String> devoted,
+      bool isAnonymous});
 
   $UserCopyWith<$Res> get user;
 }
@@ -108,6 +121,7 @@ class _$QuestionCopyWithImpl<$Res> implements $QuestionCopyWith<$Res> {
     Object? dateTime = freezed,
     Object? voted = freezed,
     Object? devoted = freezed,
+    Object? isAnonymous = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
@@ -154,6 +168,10 @@ class _$QuestionCopyWithImpl<$Res> implements $QuestionCopyWith<$Res> {
           ? _value.devoted
           : devoted // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      isAnonymous: isAnonymous == freezed
+          ? _value.isAnonymous
+          : isAnonymous // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -181,7 +199,8 @@ abstract class _$QuestionCopyWith<$Res> implements $QuestionCopyWith<$Res> {
       User user,
       DateTime dateTime,
       List<String> voted,
-      List<String> devoted});
+      List<String> devoted,
+      bool isAnonymous});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -209,6 +228,7 @@ class __$QuestionCopyWithImpl<$Res> extends _$QuestionCopyWithImpl<$Res>
     Object? dateTime = freezed,
     Object? voted = freezed,
     Object? devoted = freezed,
+    Object? isAnonymous = freezed,
   }) {
     return _then(_Question(
       title: title == freezed
@@ -255,12 +275,16 @@ class __$QuestionCopyWithImpl<$Res> extends _$QuestionCopyWithImpl<$Res>
           ? _value.devoted
           : devoted // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      isAnonymous: isAnonymous == freezed
+          ? _value.isAnonymous
+          : isAnonymous // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Question extends _Question {
   const _$_Question(
       {required this.title,
@@ -273,8 +297,12 @@ class _$_Question extends _Question {
       required this.user,
       required this.dateTime,
       this.voted = const [],
-      this.devoted = const []})
+      this.devoted = const [],
+      this.isAnonymous = false})
       : super._();
+
+  factory _$_Question.fromJson(Map<String, dynamic> json) =>
+      _$$_QuestionFromJson(json);
 
   @override
   final String title;
@@ -300,10 +328,13 @@ class _$_Question extends _Question {
   @JsonKey(defaultValue: const [])
   @override
   final List<String> devoted;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isAnonymous;
 
   @override
   String toString() {
-    return 'Question(title: $title, content: $content, votes: $votes, answers: $answers, views: $views, tags: $tags, images: $images, user: $user, dateTime: $dateTime, voted: $voted, devoted: $devoted)';
+    return 'Question(title: $title, content: $content, votes: $votes, answers: $answers, views: $views, tags: $tags, images: $images, user: $user, dateTime: $dateTime, voted: $voted, devoted: $devoted, isAnonymous: $isAnonymous)';
   }
 
   @override
@@ -334,7 +365,11 @@ class _$_Question extends _Question {
             (identical(other.voted, voted) ||
                 const DeepCollectionEquality().equals(other.voted, voted)) &&
             (identical(other.devoted, devoted) ||
-                const DeepCollectionEquality().equals(other.devoted, devoted)));
+                const DeepCollectionEquality()
+                    .equals(other.devoted, devoted)) &&
+            (identical(other.isAnonymous, isAnonymous) ||
+                const DeepCollectionEquality()
+                    .equals(other.isAnonymous, isAnonymous)));
   }
 
   @override
@@ -350,12 +385,18 @@ class _$_Question extends _Question {
       const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(dateTime) ^
       const DeepCollectionEquality().hash(voted) ^
-      const DeepCollectionEquality().hash(devoted);
+      const DeepCollectionEquality().hash(devoted) ^
+      const DeepCollectionEquality().hash(isAnonymous);
 
   @JsonKey(ignore: true)
   @override
   _$QuestionCopyWith<_Question> get copyWith =>
       __$QuestionCopyWithImpl<_Question>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_QuestionToJson(this);
+  }
 }
 
 abstract class _Question extends Question {
@@ -370,8 +411,11 @@ abstract class _Question extends Question {
       required User user,
       required DateTime dateTime,
       List<String> voted,
-      List<String> devoted}) = _$_Question;
+      List<String> devoted,
+      bool isAnonymous}) = _$_Question;
   const _Question._() : super._();
+
+  factory _Question.fromJson(Map<String, dynamic> json) = _$_Question.fromJson;
 
   @override
   String get title => throw _privateConstructorUsedError;
@@ -395,6 +439,8 @@ abstract class _Question extends Question {
   List<String> get voted => throw _privateConstructorUsedError;
   @override
   List<String> get devoted => throw _privateConstructorUsedError;
+  @override
+  bool get isAnonymous => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$QuestionCopyWith<_Question> get copyWith =>

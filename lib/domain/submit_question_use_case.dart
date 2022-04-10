@@ -17,15 +17,20 @@ class SubmitQuestionUseCase {
     required List<String> paths,
     required bool isAnonymous,
   }) async {
-    await Future.delayed(Duration(seconds: 3));
-    return Question(
+    final question = Question(
       title: title,
       content: content,
       votes: 0,
       answers: 0,
       views: 0,
       user: user,
+      images: paths,
+      isAnonymous: isAnonymous,
       dateTime: DateTime.now(),
     );
+    print('SubmitQuestionUseCase.call ${question.toJson()}');
+    final a = await firestore.collection('questions').add(question.toJson());
+    print('SubmitQuestionUseCase.call $a');
+    throw Exception();
   }
 }

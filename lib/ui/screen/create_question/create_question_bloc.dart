@@ -28,5 +28,13 @@ class CreateQuestionBloc extends BaseCubit<CreateQuestionState> {
 
   void updateAnonymous(bool input) => emit(state.copyWith(anonymous: input));
 
-  void submitQuestion(String title, String content) {}
+  void submitQuestion(String title, String content) {
+    execute(submitQuestionUseCase(
+      title: title,
+      content: content,
+      user: user,
+      isAnonymous: state.anonymous,
+      paths: state.images,
+    )).listen((_) => emit(state.copyWith(submitting: _)));
+  }
 }

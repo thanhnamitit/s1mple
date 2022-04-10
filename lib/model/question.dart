@@ -5,6 +5,8 @@ import 'user.dart';
 
 part 'question.freezed.dart';
 
+part 'question.g.dart';
+
 final timeFormat = DateFormat('hh:mm dd/MM/yyyy');
 
 @freezed
@@ -23,7 +25,11 @@ class Question with _$Question {
     required DateTime dateTime,
     @Default([]) List<String> voted,
     @Default([]) List<String> devoted,
+    @Default(false) bool isAnonymous,
   }) = _Question;
+
+  factory Question.fromJson(Map<String, dynamic> json) =>
+      _$QuestionFromJson(json);
 
   String get time => timeFormat.format(dateTime);
 }

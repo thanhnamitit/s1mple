@@ -20,7 +20,7 @@ class _$CreateQuestionStateTearOff {
   _CreateQuestionState call(
       {List<String> images = const [],
       bool anonymous = false,
-      Question? submitting}) {
+      Async<Question>? submitting}) {
     return _CreateQuestionState(
       images: images,
       anonymous: anonymous,
@@ -36,7 +36,7 @@ const $CreateQuestionState = _$CreateQuestionStateTearOff();
 mixin _$CreateQuestionState {
   List<String> get images => throw _privateConstructorUsedError;
   bool get anonymous => throw _privateConstructorUsedError;
-  Question? get submitting => throw _privateConstructorUsedError;
+  Async<Question>? get submitting => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CreateQuestionStateCopyWith<CreateQuestionState> get copyWith =>
@@ -48,9 +48,9 @@ abstract class $CreateQuestionStateCopyWith<$Res> {
   factory $CreateQuestionStateCopyWith(
           CreateQuestionState value, $Res Function(CreateQuestionState) then) =
       _$CreateQuestionStateCopyWithImpl<$Res>;
-  $Res call({List<String> images, bool anonymous, Question? submitting});
+  $Res call({List<String> images, bool anonymous, Async<Question>? submitting});
 
-  $QuestionCopyWith<$Res>? get submitting;
+  $AsyncCopyWith<Question, $Res>? get submitting;
 }
 
 /// @nodoc
@@ -80,17 +80,17 @@ class _$CreateQuestionStateCopyWithImpl<$Res>
       submitting: submitting == freezed
           ? _value.submitting
           : submitting // ignore: cast_nullable_to_non_nullable
-              as Question?,
+              as Async<Question>?,
     ));
   }
 
   @override
-  $QuestionCopyWith<$Res>? get submitting {
+  $AsyncCopyWith<Question, $Res>? get submitting {
     if (_value.submitting == null) {
       return null;
     }
 
-    return $QuestionCopyWith<$Res>(_value.submitting!, (value) {
+    return $AsyncCopyWith<Question, $Res>(_value.submitting!, (value) {
       return _then(_value.copyWith(submitting: value));
     });
   }
@@ -103,10 +103,10 @@ abstract class _$CreateQuestionStateCopyWith<$Res>
           $Res Function(_CreateQuestionState) then) =
       __$CreateQuestionStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<String> images, bool anonymous, Question? submitting});
+  $Res call({List<String> images, bool anonymous, Async<Question>? submitting});
 
   @override
-  $QuestionCopyWith<$Res>? get submitting;
+  $AsyncCopyWith<Question, $Res>? get submitting;
 }
 
 /// @nodoc
@@ -138,7 +138,7 @@ class __$CreateQuestionStateCopyWithImpl<$Res>
       submitting: submitting == freezed
           ? _value.submitting
           : submitting // ignore: cast_nullable_to_non_nullable
-              as Question?,
+              as Async<Question>?,
     ));
   }
 }
@@ -156,7 +156,7 @@ class _$_CreateQuestionState implements _CreateQuestionState {
   @override
   final bool anonymous;
   @override
-  final Question? submitting;
+  final Async<Question>? submitting;
 
   @override
   String toString() {
@@ -195,14 +195,14 @@ abstract class _CreateQuestionState implements CreateQuestionState {
   const factory _CreateQuestionState(
       {List<String> images,
       bool anonymous,
-      Question? submitting}) = _$_CreateQuestionState;
+      Async<Question>? submitting}) = _$_CreateQuestionState;
 
   @override
   List<String> get images => throw _privateConstructorUsedError;
   @override
   bool get anonymous => throw _privateConstructorUsedError;
   @override
-  Question? get submitting => throw _privateConstructorUsedError;
+  Async<Question>? get submitting => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CreateQuestionStateCopyWith<_CreateQuestionState> get copyWith =>
