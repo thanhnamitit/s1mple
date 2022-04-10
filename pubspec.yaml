@@ -1,6 +1,6 @@
 name: hackathon_s1mple
 description: Share widget
-version: 1.0
+version: 1.0.0
 homepage: https://vinbrain.net
 publish_to: none
 
@@ -21,8 +21,6 @@ dependencies:
   shimmer: ^2.0.0
   webview_flutter: ^2.0.12
   flutter_html: ^2.1.2
-  video_call:
-    path: ../video_call
   open_file: ^3.2.1
   overlay_support: ^1.2.1
   permission_handler: ^7.0.0
@@ -39,6 +37,9 @@ dependencies:
   phone_number: ^0.12.0
   qr_code_scanner: ^0.4.0
   sms_autofill: ^2.0.1
+  share_widget:
+    path: ../share_widget
+  cloud_firestore: ^3.1.11
 
 dev_dependencies:
   flutter_test:
@@ -50,10 +51,6 @@ dev_dependencies:
   pedantic: ^1.11.1
   intl_utils: ^2.4.0
   injectable_generator: ^1.5.2
-
-dependency_overrides:
-  analyzer: ^2.2.0
-
 
 flutter:
   uses-material-design: true
