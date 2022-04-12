@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:share_widget/res/share_color.dart';
 
 import '../../../model/user.dart';
 
@@ -17,6 +18,35 @@ class UserInfoAndDateTimeBlock extends StatelessWidget {
     required this.dateTime,
     this.isAnonymous = false,
   }) : super(key: key);
+
+  Widget buildRoleLabel(BuildContext context) {
+    final tag = user.role == Role.ai
+        ? 'AI'
+        : user.role == Role.doctor
+            ? 'Doctor'
+            : null;
+    if (tag == null) return SizedBox();
+    return Row(
+      children: [
+        SizedBox(width: 4),
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+          decoration: BoxDecoration(
+            color: ShareColors.warning400,
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(
+            tag,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.button?.copyWith(
+                  color: Colors.white,
+                  fontSize: 13,
+                ),
+          ),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +84,7 @@ class UserInfoAndDateTimeBlock extends StatelessWidget {
           isAnonymous ? 'Ẩn danh' : user.name,
           style: textStyle,
         ),
+        buildRoleLabel(context),
         SizedBox(width: 8),
         Expanded(
           child: Text(

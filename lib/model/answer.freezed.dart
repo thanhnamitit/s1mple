@@ -29,7 +29,9 @@ class _$AnswerTearOff {
       required DateTime dateTime,
       List<Reply>? replies,
       List<String> voted = const [],
-      List<String> devoted = const []}) {
+      List<String> devoted = const [],
+      AnswerType? type,
+      List<String>? specifications}) {
     return _Answer(
       id: id,
       content: content,
@@ -39,6 +41,8 @@ class _$AnswerTearOff {
       replies: replies,
       voted: voted,
       devoted: devoted,
+      type: type,
+      specifications: specifications,
     );
   }
 
@@ -60,6 +64,8 @@ mixin _$Answer {
   List<Reply>? get replies => throw _privateConstructorUsedError;
   List<String> get voted => throw _privateConstructorUsedError;
   List<String> get devoted => throw _privateConstructorUsedError;
+  AnswerType? get type => throw _privateConstructorUsedError;
+  List<String>? get specifications => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -78,7 +84,9 @@ abstract class $AnswerCopyWith<$Res> {
       DateTime dateTime,
       List<Reply>? replies,
       List<String> voted,
-      List<String> devoted});
+      List<String> devoted,
+      AnswerType? type,
+      List<String>? specifications});
 
   $UserCopyWith<$Res> get user;
 }
@@ -101,6 +109,8 @@ class _$AnswerCopyWithImpl<$Res> implements $AnswerCopyWith<$Res> {
     Object? replies = freezed,
     Object? voted = freezed,
     Object? devoted = freezed,
+    Object? type = freezed,
+    Object? specifications = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -135,6 +145,14 @@ class _$AnswerCopyWithImpl<$Res> implements $AnswerCopyWith<$Res> {
           ? _value.devoted
           : devoted // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as AnswerType?,
+      specifications: specifications == freezed
+          ? _value.specifications
+          : specifications // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 
@@ -159,7 +177,9 @@ abstract class _$AnswerCopyWith<$Res> implements $AnswerCopyWith<$Res> {
       DateTime dateTime,
       List<Reply>? replies,
       List<String> voted,
-      List<String> devoted});
+      List<String> devoted,
+      AnswerType? type,
+      List<String>? specifications});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -184,6 +204,8 @@ class __$AnswerCopyWithImpl<$Res> extends _$AnswerCopyWithImpl<$Res>
     Object? replies = freezed,
     Object? voted = freezed,
     Object? devoted = freezed,
+    Object? type = freezed,
+    Object? specifications = freezed,
   }) {
     return _then(_Answer(
       id: id == freezed
@@ -218,6 +240,14 @@ class __$AnswerCopyWithImpl<$Res> extends _$AnswerCopyWithImpl<$Res>
           ? _value.devoted
           : devoted // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as AnswerType?,
+      specifications: specifications == freezed
+          ? _value.specifications
+          : specifications // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -234,7 +264,9 @@ class _$_Answer extends _Answer {
       required this.dateTime,
       this.replies,
       this.voted = const [],
-      this.devoted = const []})
+      this.devoted = const [],
+      this.type,
+      this.specifications})
       : super._();
 
   factory _$_Answer.fromJson(Map<String, dynamic> json) =>
@@ -259,10 +291,14 @@ class _$_Answer extends _Answer {
   @JsonKey(defaultValue: const [])
   @override
   final List<String> devoted;
+  @override
+  final AnswerType? type;
+  @override
+  final List<String>? specifications;
 
   @override
   String toString() {
-    return 'Answer(id: $id, content: $content, accepted: $accepted, user: $user, dateTime: $dateTime, replies: $replies, voted: $voted, devoted: $devoted)';
+    return 'Answer(id: $id, content: $content, accepted: $accepted, user: $user, dateTime: $dateTime, replies: $replies, voted: $voted, devoted: $devoted, type: $type, specifications: $specifications)';
   }
 
   @override
@@ -288,7 +324,13 @@ class _$_Answer extends _Answer {
             (identical(other.voted, voted) ||
                 const DeepCollectionEquality().equals(other.voted, voted)) &&
             (identical(other.devoted, devoted) ||
-                const DeepCollectionEquality().equals(other.devoted, devoted)));
+                const DeepCollectionEquality()
+                    .equals(other.devoted, devoted)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.specifications, specifications) ||
+                const DeepCollectionEquality()
+                    .equals(other.specifications, specifications)));
   }
 
   @override
@@ -301,7 +343,9 @@ class _$_Answer extends _Answer {
       const DeepCollectionEquality().hash(dateTime) ^
       const DeepCollectionEquality().hash(replies) ^
       const DeepCollectionEquality().hash(voted) ^
-      const DeepCollectionEquality().hash(devoted);
+      const DeepCollectionEquality().hash(devoted) ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(specifications);
 
   @JsonKey(ignore: true)
   @override
@@ -323,7 +367,9 @@ abstract class _Answer extends Answer {
       required DateTime dateTime,
       List<Reply>? replies,
       List<String> voted,
-      List<String> devoted}) = _$_Answer;
+      List<String> devoted,
+      AnswerType? type,
+      List<String>? specifications}) = _$_Answer;
   const _Answer._() : super._();
 
   factory _Answer.fromJson(Map<String, dynamic> json) = _$_Answer.fromJson;
@@ -344,6 +390,10 @@ abstract class _Answer extends Answer {
   List<String> get voted => throw _privateConstructorUsedError;
   @override
   List<String> get devoted => throw _privateConstructorUsedError;
+  @override
+  AnswerType? get type => throw _privateConstructorUsedError;
+  @override
+  List<String>? get specifications => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AnswerCopyWith<_Answer> get copyWith => throw _privateConstructorUsedError;

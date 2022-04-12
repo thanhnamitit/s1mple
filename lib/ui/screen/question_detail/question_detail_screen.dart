@@ -168,34 +168,58 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen>
     required bool ignoring,
   }) {
     return IgnorePointer(
-      ignoring: ignoring,
-      child: Row(
-        children: [
-          VoteWidget(
-            votes: answer.votes,
-            submitting: submitting,
-            type: getVoteType(
-              devoted: answer.devoted,
-              voted: answer.voted,
-              userId: bloc.user.id,
+      ignoring: ignoring || answer.type == AnswerType.loading,
+      child: Container(
+        child: Row(
+          children: [
+            VoteWidget(
+              votes: answer.votes,
+              submitting: submitting,
+              type: getVoteType(
+                devoted: answer.devoted,
+                voted: answer.voted,
+                userId: bloc.user.id,
+              ),
+              requestChange: (_) => bloc.voteAnswer(_, answer),
             ),
-            requestChange: (_) => bloc.voteAnswer(_, answer),
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(answer.content),
-                SizedBox(height: 8),
-                UserInfoAndDateTimeBlock(
-                  user: answer.user,
-                  dateTime: answer.dateTime,
-                ),
-              ],
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (answer.type == AnswerType.loading) ...[
+                    Row(
+                      children: [
+                        Flexible(child: Text(answer.content)),
+                        SizedBox(width: 8),
+                        SizedBox(
+                          width: 12,
+                          height: 12,
+                          child: CircularProgressIndicator(strokeWidth: 1),
+                        ),
+                      ],
+                    ),
+                  ] else if (answer.type == AnswerType.aiPredict) ...[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(answer.content),
+                        SizedBox(height: 8),
+                        Tags(answer.specifications ?? []),
+                      ],
+                    ),
+                  ] else
+                    Text(answer.content),
+                  SizedBox(height: 8),
+                  UserInfoAndDateTimeBlock(
+                    user: answer.user,
+                    dateTime: answer.dateTime,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

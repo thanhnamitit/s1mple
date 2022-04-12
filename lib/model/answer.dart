@@ -1,13 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:intl/intl.dart';
 
-import '../domain/base_update_voted_use_case.dart';
 import 'reply.dart';
 import 'user.dart';
 
 part 'answer.freezed.dart';
+
 part 'answer.g.dart';
 
+enum AnswerType { none, loading, aiPredict }
 
 @freezed
 class Answer with _$Answer {
@@ -23,10 +23,11 @@ class Answer with _$Answer {
     List<Reply>? replies,
     @Default([]) List<String> voted,
     @Default([]) List<String> devoted,
+    AnswerType? type,
+    List<String>? specifications,
   }) = _Answer;
 
   factory Answer.fromJson(Map<String, dynamic> json) => _$AnswerFromJson(json);
 
   int get votes => voted.length - devoted.length;
-
 }

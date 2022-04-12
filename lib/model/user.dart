@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'user.freezed.dart';
 part 'user.g.dart';
 
-enum Role { patient, doctor }
+enum Role { patient, doctor, ai }
 
 @freezed
 class User with _$User {

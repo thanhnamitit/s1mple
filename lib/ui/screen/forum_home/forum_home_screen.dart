@@ -23,6 +23,8 @@ class ForumHomeScreen extends StatefulWidget {
 class _ForumHomeScreenState extends State<ForumHomeScreen> {
   late final ForumHomeBloc bloc;
 
+  User get user => widget.user;
+
   @override
   void initState() {
     super.initState();
@@ -67,18 +69,20 @@ class _ForumHomeScreenState extends State<ForumHomeScreen> {
             title: Text('Hỏi Đáp'),
             leading: ShareBackButton(),
             actions: [
-              InkWell(
-                child: IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => CreateQuestionScreen(user: widget.user),
-                      ),
-                    );
-                  },
-                ),
-              )
+              if (user.role == Role.patient)
+                InkWell(
+                  child: IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              CreateQuestionScreen(user: widget.user),
+                        ),
+                      );
+                    },
+                  ),
+                )
             ],
           ),
           body: ShareBackground(
