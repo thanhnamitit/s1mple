@@ -1,8 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_widget/share_widget.dart';
 
 import '../../../di/hackathon_di.dart';
+import '../../../domain/submit_question_use_case.dart';
 import '../../../model/answer.dart';
 import '../../../model/question.dart';
 import '../../../model/user.dart';
@@ -205,7 +207,19 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen>
                       children: [
                         Text(answer.content),
                         SizedBox(height: 8),
-                        Tags(answer.specifications ?? []),
+                        Tags(
+                          answer.specifications?.map((e) => e.name).toList(),
+                          onTagTap: (_) {
+                            final spec = specifications
+                                .firstWhereOrNull((e) => e.name == _)
+                                ?.code;
+                            Navigator.of(context).pushRoutePath(
+                              RoutePath.bookAppointmentByDoctor(
+                                specialties: spec != null ? [spec] : null,
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ] else

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,6 +11,22 @@ import '../model/answer.dart';
 import '../model/question.dart';
 import '../model/user.dart';
 
+const daLieu = Specification(name: 'Da Liễu', code: 'SP002');
+const yHocGiaDinh = Specification(name: 'Y Học Gia Đình', code: 'SP001');
+const nhiKhoa = Specification(name: 'Nhi Khoa', code: 'SP005');
+const noiTongQuat = Specification(name: 'Nội Tổng Quát', code: 'SP008');
+const sanPhuKhoa = Specification(name: 'Sản Phụ Khoa', code: 'SP013');
+const namKhoa = Specification(name: 'Nam Khoa', code: 'SP025');
+
+const specifications = [
+  daLieu,
+  yHocGiaDinh,
+  nhiKhoa,
+  noiTongQuat,
+  sanPhuKhoa,
+  namKhoa
+];
+
 @injectable
 class SubmitQuestionUseCase {
   static final _uuid = Uuid();
@@ -20,6 +37,8 @@ class SubmitQuestionUseCase {
   SubmitQuestionUseCase(this.firestore, this.storage);
 
   void fakeAiAnswer(Question question) async {
+    final specs = specifications.toList();
+    specs.shuffle();
     final answer = Answer(
       content: 'AI đang phân tích...',
       user: User(
@@ -29,7 +48,7 @@ class SubmitQuestionUseCase {
         avatar: 'https://thanhnamitit.xyz/conversation/navi_team_avatar.png',
       ),
       type: AnswerType.loading,
-      specifications: ['Da Liễu'],
+      specifications: specs.take(Random().nextInt(specs.length)).toList(),
       dateTime: DateTime.now(),
     );
     final answersRef = firestore
@@ -37,7 +56,7 @@ class SubmitQuestionUseCase {
         .doc(question.id)
         .collection(Const.answers);
     final ref = await answersRef.add(answer.toJson());
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 3));
     await answersRef.doc(ref.id).update(
       {
         'type': 'aiPredict',

@@ -13,6 +13,178 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Specification _$SpecificationFromJson(Map<String, dynamic> json) {
+  return _Specification.fromJson(json);
+}
+
+/// @nodoc
+class _$SpecificationTearOff {
+  const _$SpecificationTearOff();
+
+  _Specification call({required String code, required String name}) {
+    return _Specification(
+      code: code,
+      name: name,
+    );
+  }
+
+  Specification fromJson(Map<String, Object> json) {
+    return Specification.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $Specification = _$SpecificationTearOff();
+
+/// @nodoc
+mixin _$Specification {
+  String get code => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $SpecificationCopyWith<Specification> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SpecificationCopyWith<$Res> {
+  factory $SpecificationCopyWith(
+          Specification value, $Res Function(Specification) then) =
+      _$SpecificationCopyWithImpl<$Res>;
+  $Res call({String code, String name});
+}
+
+/// @nodoc
+class _$SpecificationCopyWithImpl<$Res>
+    implements $SpecificationCopyWith<$Res> {
+  _$SpecificationCopyWithImpl(this._value, this._then);
+
+  final Specification _value;
+  // ignore: unused_field
+  final $Res Function(Specification) _then;
+
+  @override
+  $Res call({
+    Object? code = freezed,
+    Object? name = freezed,
+  }) {
+    return _then(_value.copyWith(
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$SpecificationCopyWith<$Res>
+    implements $SpecificationCopyWith<$Res> {
+  factory _$SpecificationCopyWith(
+          _Specification value, $Res Function(_Specification) then) =
+      __$SpecificationCopyWithImpl<$Res>;
+  @override
+  $Res call({String code, String name});
+}
+
+/// @nodoc
+class __$SpecificationCopyWithImpl<$Res>
+    extends _$SpecificationCopyWithImpl<$Res>
+    implements _$SpecificationCopyWith<$Res> {
+  __$SpecificationCopyWithImpl(
+      _Specification _value, $Res Function(_Specification) _then)
+      : super(_value, (v) => _then(v as _Specification));
+
+  @override
+  _Specification get _value => super._value as _Specification;
+
+  @override
+  $Res call({
+    Object? code = freezed,
+    Object? name = freezed,
+  }) {
+    return _then(_Specification(
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$_Specification extends _Specification {
+  const _$_Specification({required this.code, required this.name}) : super._();
+
+  factory _$_Specification.fromJson(Map<String, dynamic> json) =>
+      _$$_SpecificationFromJson(json);
+
+  @override
+  final String code;
+  @override
+  final String name;
+
+  @override
+  String toString() {
+    return 'Specification(code: $code, name: $name)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Specification &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(code) ^
+      const DeepCollectionEquality().hash(name);
+
+  @JsonKey(ignore: true)
+  @override
+  _$SpecificationCopyWith<_Specification> get copyWith =>
+      __$SpecificationCopyWithImpl<_Specification>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_SpecificationToJson(this);
+  }
+}
+
+abstract class _Specification extends Specification {
+  const factory _Specification({required String code, required String name}) =
+      _$_Specification;
+  const _Specification._() : super._();
+
+  factory _Specification.fromJson(Map<String, dynamic> json) =
+      _$_Specification.fromJson;
+
+  @override
+  String get code => throw _privateConstructorUsedError;
+  @override
+  String get name => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$SpecificationCopyWith<_Specification> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 Answer _$AnswerFromJson(Map<String, dynamic> json) {
   return _Answer.fromJson(json);
 }
@@ -31,7 +203,7 @@ class _$AnswerTearOff {
       List<String> voted = const [],
       List<String> devoted = const [],
       AnswerType? type,
-      List<String>? specifications}) {
+      List<Specification>? specifications}) {
     return _Answer(
       id: id,
       content: content,
@@ -65,7 +237,7 @@ mixin _$Answer {
   List<String> get voted => throw _privateConstructorUsedError;
   List<String> get devoted => throw _privateConstructorUsedError;
   AnswerType? get type => throw _privateConstructorUsedError;
-  List<String>? get specifications => throw _privateConstructorUsedError;
+  List<Specification>? get specifications => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -86,7 +258,7 @@ abstract class $AnswerCopyWith<$Res> {
       List<String> voted,
       List<String> devoted,
       AnswerType? type,
-      List<String>? specifications});
+      List<Specification>? specifications});
 
   $UserCopyWith<$Res> get user;
 }
@@ -152,7 +324,7 @@ class _$AnswerCopyWithImpl<$Res> implements $AnswerCopyWith<$Res> {
       specifications: specifications == freezed
           ? _value.specifications
           : specifications // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Specification>?,
     ));
   }
 
@@ -179,7 +351,7 @@ abstract class _$AnswerCopyWith<$Res> implements $AnswerCopyWith<$Res> {
       List<String> voted,
       List<String> devoted,
       AnswerType? type,
-      List<String>? specifications});
+      List<Specification>? specifications});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -247,7 +419,7 @@ class __$AnswerCopyWithImpl<$Res> extends _$AnswerCopyWithImpl<$Res>
       specifications: specifications == freezed
           ? _value.specifications
           : specifications // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<Specification>?,
     ));
   }
 }
@@ -294,7 +466,7 @@ class _$_Answer extends _Answer {
   @override
   final AnswerType? type;
   @override
-  final List<String>? specifications;
+  final List<Specification>? specifications;
 
   @override
   String toString() {
@@ -369,7 +541,7 @@ abstract class _Answer extends Answer {
       List<String> voted,
       List<String> devoted,
       AnswerType? type,
-      List<String>? specifications}) = _$_Answer;
+      List<Specification>? specifications}) = _$_Answer;
   const _Answer._() : super._();
 
   factory _Answer.fromJson(Map<String, dynamic> json) = _$_Answer.fromJson;
@@ -393,7 +565,7 @@ abstract class _Answer extends Answer {
   @override
   AnswerType? get type => throw _privateConstructorUsedError;
   @override
-  List<String>? get specifications => throw _privateConstructorUsedError;
+  List<Specification>? get specifications => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AnswerCopyWith<_Answer> get copyWith => throw _privateConstructorUsedError;

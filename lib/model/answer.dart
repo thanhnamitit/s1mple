@@ -10,6 +10,20 @@ part 'answer.g.dart';
 enum AnswerType { none, loading, aiPredict }
 
 @freezed
+class Specification with _$Specification {
+  const Specification._();
+
+  @JsonSerializable(explicitToJson: true)
+  const factory Specification({
+    required String code,
+    required String name,
+  }) = _Specification;
+
+  factory Specification.fromJson(Map<String, dynamic> json) =>
+      _$SpecificationFromJson(json);
+}
+
+@freezed
 class Answer with _$Answer {
   const Answer._();
 
@@ -24,7 +38,7 @@ class Answer with _$Answer {
     @Default([]) List<String> voted,
     @Default([]) List<String> devoted,
     AnswerType? type,
-    List<String>? specifications,
+    List<Specification>? specifications,
   }) = _Answer;
 
   factory Answer.fromJson(Map<String, dynamic> json) => _$AnswerFromJson(json);

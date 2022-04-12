@@ -6,6 +6,18 @@ part of 'answer.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$_Specification _$$_SpecificationFromJson(Map<String, dynamic> json) =>
+    _$_Specification(
+      code: json['code'] as String,
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$$_SpecificationToJson(_$_Specification instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+      'name': instance.name,
+    };
+
 _$_Answer _$$_AnswerFromJson(Map<String, dynamic> json) => _$_Answer(
       id: json['id'] as String?,
       content: json['content'] as String,
@@ -24,7 +36,7 @@ _$_Answer _$$_AnswerFromJson(Map<String, dynamic> json) => _$_Answer(
           [],
       type: _$enumDecodeNullable(_$AnswerTypeEnumMap, json['type']),
       specifications: (json['specifications'] as List<dynamic>?)
-          ?.map((e) => e as String)
+          ?.map((e) => Specification.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -38,7 +50,8 @@ Map<String, dynamic> _$$_AnswerToJson(_$_Answer instance) => <String, dynamic>{
       'voted': instance.voted,
       'devoted': instance.devoted,
       'type': _$AnswerTypeEnumMap[instance.type],
-      'specifications': instance.specifications,
+      'specifications':
+          instance.specifications?.map((e) => e.toJson()).toList(),
     };
 
 K _$enumDecode<K, V>(
