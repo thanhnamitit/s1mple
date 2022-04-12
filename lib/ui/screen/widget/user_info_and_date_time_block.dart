@@ -68,6 +68,7 @@ class UserInfoAndDateTimeBlock extends StatelessWidget {
               height: avatarSize,
               child: CachedNetworkImage(
                 imageUrl: isAnonymous ? '' : user.avatar ?? '',
+                fit: BoxFit.cover,
                 errorWidget: (_, __, ___) {
                   return Container(
                     width: avatarSize,
