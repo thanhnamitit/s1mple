@@ -11,12 +11,14 @@ class UserInfoAndDateTimeBlock extends StatelessWidget {
   final User user;
   final DateTime dateTime;
   final bool isAnonymous;
+  final VoidCallback? onTap;
 
   const UserInfoAndDateTimeBlock({
     Key? key,
     required this.user,
     required this.dateTime,
     this.isAnonymous = false,
+    this.onTap,
   }) : super(key: key);
 
   Widget buildRoleLabel(BuildContext context) {
@@ -55,45 +57,48 @@ class UserInfoAndDateTimeBlock extends StatelessWidget {
           fontSize: 13,
           color: Color.fromARGB(255, 19, 111, 197),
         );
-    return Row(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(avatarSize),
-          child: SizedBox(
-            width: avatarSize,
-            height: avatarSize,
-            child: CachedNetworkImage(
-              imageUrl: isAnonymous ? '' : user.avatar ?? '',
-              errorWidget: (_, __, ___) {
-                return Container(
-                  width: avatarSize,
-                  height: avatarSize,
-                  decoration: BoxDecoration(color: Colors.black54),
-                  child: Icon(
-                    Icons.person,
-                    size: avatarSize / 2,
-                    color: Colors.white,
-                  ),
-                );
-              },
+    return InkWell(
+      onTap: onTap,
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(avatarSize),
+            child: SizedBox(
+              width: avatarSize,
+              height: avatarSize,
+              child: CachedNetworkImage(
+                imageUrl: isAnonymous ? '' : user.avatar ?? '',
+                errorWidget: (_, __, ___) {
+                  return Container(
+                    width: avatarSize,
+                    height: avatarSize,
+                    decoration: BoxDecoration(color: Colors.black54),
+                    child: Icon(
+                      Icons.person,
+                      size: avatarSize / 2,
+                      color: Colors.white,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
-        ),
-        SizedBox(width: 4),
-        Text(
-          isAnonymous ? 'Ẩn danh' : user.name,
-          style: textStyle,
-        ),
-        buildRoleLabel(context),
-        SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            timeFormat.format(dateTime),
-            textAlign: TextAlign.end,
+          SizedBox(width: 4),
+          Text(
+            isAnonymous ? 'Ẩn danh' : user.name,
             style: textStyle,
           ),
-        ),
-      ],
+          buildRoleLabel(context),
+          SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              timeFormat.format(dateTime),
+              textAlign: TextAlign.end,
+              style: textStyle,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

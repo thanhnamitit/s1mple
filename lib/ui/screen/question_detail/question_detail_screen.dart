@@ -214,6 +214,14 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen>
                   UserInfoAndDateTimeBlock(
                     user: answer.user,
                     dateTime: answer.dateTime,
+                    onTap: () {
+                      if (answer.user.role == Role.doctor) {
+                        Navigator.of(context).pushNamed(
+                          'telehealth/doctorProfile',
+                          arguments: answer.user.id,
+                        );
+                      }
+                    },
                   ),
                 ],
               ),

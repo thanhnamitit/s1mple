@@ -15,7 +15,7 @@ class ObserveToAnswersUseCase {
         .collection(Const.questions)
         .doc(questionId)
         .collection(Const.answers)
-        .orderBy('dateTime', descending: true)
+        .orderBy('dateTime', descending: false)
         .snapshots()
         .map((e) => e.docs
             .map((doc) => Answer.fromJson(doc.data()).copyWith(id: doc.id))
