@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
@@ -37,6 +37,15 @@ class SubmitQuestionUseCase {
   SubmitQuestionUseCase(this.firestore, this.storage);
 
   void fakeAiAnswer(Question question) async {
+    final predict =
+        await Dio().post('http://10.208.209.220:8080/classifier/', data: {
+      'sentences': question.content,
+    }).then((value) {
+      print('SubmitQuestionUseCase.call ${Map.from(value.data)}');
+      return Specification.fromJson(Map.from(value.data));
+    });
+    print('SubmitQuestionUseCase.call $predict');
+
     final specs = specifications.toList();
     specs.shuffle();
     final answer = Answer(
@@ -48,7 +57,7 @@ class SubmitQuestionUseCase {
         avatar: 'https://thanhnamitit.xyz/conversation/navi_team_avatar.png',
       ),
       type: AnswerType.loading,
-      specifications: specs.take(Random().nextInt(specs.length)).toList(),
+      specifications: [predict],
       dateTime: DateTime.now(),
     );
     final answersRef = firestore
@@ -56,7 +65,7 @@ class SubmitQuestionUseCase {
         .doc(question.id)
         .collection(Const.answers);
     final ref = await answersRef.add(answer.toJson());
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 7));
     await answersRef.doc(ref.id).update(
       {
         'type': 'aiPredict',

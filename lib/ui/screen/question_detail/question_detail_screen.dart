@@ -57,12 +57,15 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen>
         child: Row(
           children: paths
               .map(
-                (e) => ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Container(
-                    width: 80,
-                    height: 80,
-                    child: FirebaseImage(storagePath: e),
+                (e) => Padding(
+                  padding: const EdgeInsets.only(right: 12),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      child: FirebaseImage(storagePath: e),
+                    ),
                   ),
                 ),
               )
